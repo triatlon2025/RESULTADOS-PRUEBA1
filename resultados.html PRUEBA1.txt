@@ -32,9 +32,9 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: 'resultados.csv111',  // <-- tu archivo CSV
+                url: './resultados.csv',  // <-- tu archivo CSV
                 dataType: 'text',
-            }).done(function(data) {
+           success: function(data) {
                 let lines = data.split('\n');
                 let tableData = [];
                 lines.forEach(function(line) {
@@ -82,3 +82,4 @@
     </script>
 </body>
 </html>
+
