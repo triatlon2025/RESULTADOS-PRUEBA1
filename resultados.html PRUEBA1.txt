@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Resultados de Carrera</title>
+    <title>Resultados de Triatlón</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
-    <h2>Resultados de Carrera</h2>
+    <h2>Resultados de Triatlón</h2>
     <table id="resultados" class="display" style="width:100%">
         <thead>
             <tr>
@@ -32,17 +32,14 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: './resultados.csv',  // <-- tu archivo CSV
+                url: './resultados.csv',  // CSV en la misma carpeta que index.html
                 dataType: 'text',
-           success: function(data) {
-                let lines = data.split('\n');
-                let tableData = [];
-                lines.forEach(function(line) {
-                    if (line.trim() !== '') {
-                        let cols = line.split(';'); // Cambialo a ',' si tu CSV usa comas
-
-                        // 🔧 Solo procesar filas que tengan exactamente 11 columnas
-                        if (cols.length === 11) {
+                success: function(data) {
+                    let lines = data.split('\n');
+                    let tableData = [];
+                    lines.forEach(function(line) {
+                        let cols = line.split(';');
+                        if (cols.length === 11) {  // Solo filas con 11 columnas
                             tableData.push({
                                 0: cols[0],
                                 1: cols[1],
@@ -57,29 +54,28 @@
                                 10: cols[10]
                             });
                         }
-                    }
-                });
-                $('#resultados').DataTable({
-                    data: tableData,
-                    columns: [
-                        { data: 0 },
-                        { data: 1 },
-                        { data: 2 },
-                        { data: 3 },
-                        { data: 4 },
-                        { data: 5 },
-                        { data: 6 },
-                        { data: 7 },
-                        { data: 8 },
-                        { data: 9 },
-                        { data: 10 }
-                    ],
-                    pageLength: 25,
-                    lengthMenu: [[25,50,100],[25,50,100]]
-                });
+                    });
+                    $('#resultados').DataTable({
+                        data: tableData,
+                        columns: [
+                            { data: 0 },
+                            { data: 1 },
+                            { data: 2 },
+                            { data: 3 },
+                            { data: 4 },
+                            { data: 5 },
+                            { data: 6 },
+                            { data: 7 },
+                            { data: 8 },
+                            { data: 9 },
+                            { data: 10 }
+                        ],
+                        pageLength: 25,
+                        lengthMenu: [[25,50,100],[25,50,100]]
+                    });
+                }
             });
         });
     </script>
 </body>
 </html>
-
